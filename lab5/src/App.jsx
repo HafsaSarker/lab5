@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import CoinInfo from "./Components/coinInfo";
 const API_KEY = import.meta.env.VITE_APP_API_KEY;
 
 function App() {
   const [list, setList] = useState(null);
-
+  
   useEffect(() => {
     const fetchAllCoinData = async () => {
       const response = await fetch(
@@ -25,7 +26,12 @@ function App() {
         {list && Object.entries(list).map(([coin]) => 
           list[coin].PlatformType === "blockchain" ? 
           (
-            <li key={list[coin].FullName}>{list[coin].FullName}</li>
+            <CoinInfo 
+              key={list[coin].FullName}
+              image = {list[coin].ImageUrl}
+              name={list[coin].FullName}
+              symbol={list[coin].Symbol}
+            />
           )
           :
             null
